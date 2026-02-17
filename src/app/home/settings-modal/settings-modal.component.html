@@ -1,0 +1,150 @@
+<div class="w-full h-full flex flex-col">
+  <div class="w-full h-[15vh] flex-shrink-0">
+    <div class="w-full flex px-5 border-b-2 border-gray-700 dark:border-white">
+      <div class="flex-1 flex justify-start">
+        <p
+          class="mr-5 border-r-2 border-l-2 border-t-2 py-2 px-5 rounded-t-md cursor-pointer"
+          (click)="selectedTab = 0"
+          [ngClass]="{ 'dark:bg-gray-700 bg-gray-200': selectedTab === 0 }"
+        >
+          Settings
+        </p>
+        <p
+          class="mr-5 border-r-2 border-l-2 border-t-2 py-2 px-5 rounded-t-md cursor-pointer"
+          (click)="selectHistory()"
+          [ngClass]="{ 'dark:bg-gray-700 bg-gray-200': selectedTab === 1 }"
+        >
+          History
+        </p>
+      </div>
+      <div class="flex justify-end items-center cursor-pointer" (click)="closeSettings()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="w-full flex-1 flex items-start overflow-hidden">
+    <div *ngIf="selectedTab === 0" class="w-full justify-center px-5 py-4">
+      <div class="flex my-5 justify-center">
+        <p class="flex items-center">Row 1 Color:</p>
+        <select [(ngModel)]="selectedColor0" class="ml-3 rounded-l-md" name="color" (change)="colorSelected($event, 0)">
+          <option value="bg-red-500">Red</option>
+          <option value="bg-yellow-400">Yellow</option>
+          <option value="bg-green-500">Green</option>
+          <option value="bg-blue-500">Blue</option>
+          <option value="bg-orange-500">Orange</option>
+          <option value="bg-purple-500">Purple</option>
+        </select>
+        <div class="h-[30px] w-[30px] rounded-r-md" [ngClass]="selectedColor0"></div>
+      </div>
+      <div class="flex my-5 justify-center">
+        <p class="flex items-center">Row 2 Color:</p>
+        <select [(ngModel)]="selectedColor1" class="ml-3 rounded-l-md" name="color" (change)="colorSelected($event, 1)">
+          <option value="bg-red-500">Red</option>
+          <option value="bg-yellow-400">Yellow</option>
+          <option value="bg-green-500">Green</option>
+          <option value="bg-blue-500">Blue</option>
+          <option value="bg-orange-500">Orange</option>
+          <option value="bg-purple-500">Purple</option>
+        </select>
+        <div class="h-[30px] w-[30px] rounded-r-md" [ngClass]="selectedColor1"></div>
+      </div>
+      <div class="flex my-5 justify-center">
+        <p class="flex items-center">Row 3 Color:</p>
+        <select [(ngModel)]="selectedColor2" class="ml-3 rounded-l-md" name="color" (change)="colorSelected($event, 2)">
+          <option value="bg-red-500">Red</option>
+          <option value="bg-yellow-400">Yellow</option>
+          <option value="bg-green-500">Green</option>
+          <option value="bg-blue-500">Blue</option>
+          <option value="bg-orange-500">Orange</option>
+          <option value="bg-purple-500">Purple</option>
+        </select>
+        <div class="h-[30px] w-[30px] rounded-r-md" [ngClass]="selectedColor2"></div>
+      </div>
+      <div class="w-full flex justify-center">
+        <p
+          class="m-1 h-[5vw] w-[20vw] md:w-[16vw] rounded-full py-2 px-3 dark:bg-gray-700 border-2 border-gray-200 dark:border-none dark:text-white flex items-center justify-center cursor-pointer"
+          (click)="resetColors()"
+        >
+          Reset Colors
+        </p>
+      </div>
+    </div>
+    <div *ngIf="selectedTab === 1" class="w-full flex flex-col px-3 h-full overflow-hidden">
+      <input class="hidden" type="file" id="upload-file" accept=".json" (change)="addAttachment($event)" />
+      <div *ngIf="gameHistory().length; else noGames" class="h-full flex flex-col">
+        <div class="flex justify-between h-[15vh] flex-shrink-0">
+          <div class="flex flex-col items-center">
+            <p>High Score</p>
+            <div>{{ highScore() }}</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <p class="px-3">Low Score</p>
+            <div>{{ lowScore() }}</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <p>Average Score</p>
+            <div>{{ avgScore() | number : '1.2-2' }}</div>
+          </div>
+        </div>
+        <div class="overflow-y-auto flex-1 min-h-0">
+          <table class="w-full border-2 border-gray-300 dark:border-white">
+            <thead class="border-b-2 border-gray-300 dark:border-white">
+              <tr>
+                <th class="w-1/5 py-2"></th>
+                <th class="w-2/5 border-gray-300 dark:border-white py-2">Date</th>
+                <th class="w-2/5 py-2">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let game of gameHistory(); let i = index"
+                class="border-b-2 border-gray-300 dark:border-white"
+              >
+                <td class="py-2 border-0 border-gray-300 dark:border-white text-center cursor-pointer" (click)="deleteHistoryEntry(i)">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </td>
+                <td class="py-2 border-0 border-gray-300 dark:border-white text-center">{{ game.date | date }}</td>
+                <td class="py-2 border-0 border-gray-300 dark:border-white text-center">{{ game.score }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="w-full h-[15vh] flex items-center justify-between flex-shrink-0">
+          <div
+            class="h-[10vh] aspect-square bg-gray-700 mr-1 rounded-full flex items-center justify-center text-2xl cursor-pointer"
+            (click)="downloadHistory()"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3/5 aspect-square">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+          </div>
+          <div
+            class="h-[10vh] aspect-square bg-gray-700 mr-1 rounded-full flex items-center justify-center text-2xl cursor-pointer"
+            (click)="openFileExplorer()"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3/5 aspect-square">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <ng-template #noGames>
+        <div class="w-full flex justify-center flex-col items-center py-8">
+          <h1 class="text-3xl">You Have No Game History</h1>
+          <div
+            class="h-[10vh] aspect-square bg-gray-700 mr-1 rounded-full flex items-center justify-center text-2xl mt-5 cursor-pointer"
+            (click)="openFileExplorer()"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3/5 aspect-square">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

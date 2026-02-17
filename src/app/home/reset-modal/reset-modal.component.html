@@ -1,0 +1,23 @@
+<div class="w-full h-full flex flex-col p-4">
+  <div class="w-full h-2/5 flex items-end">
+    <div class="w-full flex justify-center text-4xl">Reset Game</div>
+  </div>
+  <div class="h-1/2 w-full flex items-center justify-center mt-1">
+    <input name="includeCheckbox" id="includeCheckbox" type="checkbox" class="mr-1" [(ngModel)]="includeInHistory" />
+    <label for="includeCheckbox" class="text-sm">Include this game in your history?</label>
+  </div>
+  <div class="w-full h-3/5 flex items-center">
+    <div class="w-full flex">
+      <div class="w-1/2 flex justify-end py-3">
+        <button class="m-1 h-[8vw] w-[16vw] rounded-full py-2 px-3 bg-gray-700 text-white cursor-pointer" (click)="respond(false)">
+          No
+        </button>
+      </div>
+      <div class="w-1/2 flex justify-start py-3">
+        <button class="m-1 h-[8vw] w-[16vw] rounded-full py-2 px-3 bg-gray-700 text-white cursor-pointer" (click)="respond(true)">
+          Yes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

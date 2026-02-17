@@ -1,0 +1,16 @@
+<div
+  class="border-2 h-full w-full flex items-center justify-center cursor-pointer"
+  [ngClass]="{
+    'rounded-full': !isPentagon,
+    'rounded-md': isPentagon,
+    'border-none': isBlank,
+    '!bg-transparent': isBlank,
+    'border-black border-2 text-black font-bold md:text-4xl text-2xl': !isBlank
+  }"
+  (click)="presentModal()"
+  [class]="(colors?.background || '') + ' ' + (colors?.text || '')"
+>
+  <p *ngIf="isBlank"></p>
+  <p *ngIf="isPentagon">{{ selectedScore ?? '' }}</p>
+  <p *ngIf="!isBlank && !isPentagon">{{ selectedScore ?? '' }}</p>
+</div>

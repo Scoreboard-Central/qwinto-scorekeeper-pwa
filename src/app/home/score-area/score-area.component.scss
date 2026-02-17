@@ -1,0 +1,31 @@
+.hexagon {
+  top: 30vh;
+  left: 40%;
+  position: absolute;
+  margin: 0 auto;
+  background-color: dodgerblue;
+  border-radius: 10px;
+  width: 100px;
+  height: 63px;
+  box-sizing: border-box;
+  transition: all 1s;
+  border: 0.4vh solid transparent;
+}
+.hexagon:before,
+.hexagon:after {
+  content: "";
+  border: inherit;
+  position: absolute;
+  top: -0.5vh;
+  left: -0.5vh;
+  background-color: transparent;
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+}
+.hexagon:before {
+  transform: rotate(60deg);
+}
+.hexagon:after {
+  transform: rotate(-60deg);
+}

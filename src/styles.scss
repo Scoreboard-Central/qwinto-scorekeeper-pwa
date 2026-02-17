@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-green-100 {
+  background: #dcfce7;
+}
+.bg-blue-100 {
+  background: #dbeafe;
+}
+.bg-red-100 {
+  background: #fee2e2;
+}
+.bg-yellow-50 {
+  background: #fffceb;
+}
+.bg-orange-100 {
+  background: #ffedd5;
+}
+.bg-purple-100 {
+  background: #f3e8ff;
+}
+.border-green-500 {
+  border-color: #22c55e;
+}
+.border-blue-500 {
+  border-color: #3b82f6;
+}
+.border-red-500 {
+  border-color: #ef4444;
+}
+.border-yellow-400 {
+  border-color: #facc15;
+}
+.border-purple-500 {
+  border-color: #a855f7;
+}
+.border-orange-500 {
+  border-color: #f97316;
+}
+.text-green-500 {
+  color: #22c55e;
+}
+.text-blue-500 {
+  color: #3b82f6;
+}
+.text-red-500 {
+  color: #ef4444;
+}
+.text-yellow-400 {
+  color: #facc15;
+}
+.text-purple-500 {
+  color: #a855f7;
+}
+.text-orange-500 {
+  color: #f97316;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-overlay.small-modal .modal-content {
+  height: 60%;
+  width: 40%;
+  border-radius: 8px;
+}
+.modal-overlay.medium-modal .modal-content {
+  height: 65%;
+  width: 40%;
+  border-radius: 8px;
+}
+.modal-overlay.medium-modal.secondary .modal-content {
+  background: #d1d1d1;
+}
+@media (prefers-color-scheme: dark) {
+  .modal-overlay.medium-modal.secondary .modal-content {
+    background: #2f2f2f;
+  }
+}
+.modal-content {
+  background: #fff;
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+@media (prefers-color-scheme: dark) {
+  .modal-content {
+    background: #1c1c1d;
+  }
+}
+
+/* Toast */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  background: #374151;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
