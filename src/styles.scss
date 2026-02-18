@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base layout - fill viewport and center content on larger screens */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+
 .bg-green-100 {
   background: #dcfce7;
 }
@@ -69,12 +87,16 @@
 }
 .modal-overlay.small-modal .modal-content {
   height: 60%;
-  width: 40%;
+  width: 90%;
+  max-width: 400px;
+  min-height: 280px;
   border-radius: 8px;
 }
 .modal-overlay.medium-modal .modal-content {
   height: 65%;
-  width: 40%;
+  width: 90%;
+  max-width: 420px;
+  min-height: 320px;
   border-radius: 8px;
 }
 .modal-overlay.medium-modal.secondary .modal-content {
@@ -88,9 +110,18 @@
 .modal-content {
   background: #fff;
   max-height: 90vh;
+  max-width: 95vw;
   overflow: auto;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+@media (min-width: 640px) {
+  .modal-overlay.small-modal .modal-content {
+    width: 85%;
+  }
+  .modal-overlay.medium-modal .modal-content {
+    width: 85%;
+  }
 }
 @media (prefers-color-scheme: dark) {
   .modal-content {

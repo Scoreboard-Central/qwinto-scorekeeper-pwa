@@ -39,7 +39,8 @@ export class HomeComponent implements OnInit {
   hideScores = signal(false);
 
   ngOnInit(): void {
-    if (typeof screen !== 'undefined' && screen.orientation?.lock) {
+    // Only lock landscape on narrow viewports (phones) - allow desktop/tablet to use natural orientation
+    if (typeof window !== 'undefined' && window.innerWidth < 768 && screen?.orientation?.lock) {
       screen.orientation.lock('landscape').catch(() => {});
     }
     const rowColorOverrides = JSON.parse(localStorage.getItem('rowColors') || '{}');

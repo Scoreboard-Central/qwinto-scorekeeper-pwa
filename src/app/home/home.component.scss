@@ -1,18 +1,138 @@
+/* Host stretches to fill available space for centering */
+:host {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Responsive game container - centers content on desktop/tablet with max width */
+.game-container {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 900px;
+  }
+}
+
+/* Responsive row heights - balanced for visibility across screen sizes */
+.row-height {
+  min-height: 64px;
+  height: 17vh;
+
+  @media (min-height: 700px) {
+    height: clamp(72px, 14vh, 140px);
+  }
+}
+
+.failed-throws-height {
+  min-height: auto;
+}
+
+.failed-throw-box {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-control-element {
+  width: 35px;
+  height: 35px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  /* ~19px */
+  font-weight: bold;
+}
+
+.score-bar-height {
+  min-height: 56px;
+
+  @media (max-height: 699px) {
+    min-height: 11vh;
+  }
+
+  @media (min-height: 700px) {
+    min-height: clamp(56px, 8vh, 80px);
+  }
+}
+
 .offset-0 {
-  margin-left: calc(8vw + 10px);
+  margin-left: min(calc(8vw + 10px), 80px);
 }
+
 .offset-2 {
-  margin-left: calc(-8vw - 10px);
+  margin-left: min(calc(-8vw - 10px), -80px);
 }
+
+
+
+/* Below 768px: horizontal scroll instead of shrinking */
+.score-rows-wrapper {
+  @media (max-width: 767px) {
+    overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.score-rows-inner {
+  @media (max-width: 767px) {
+    width: fit-content;
+    min-width: 100%;
+    /* Ensure rows stretch to at least the wrapper width, but grow with content */
+  }
+}
+
+/* Score grid cells - square that fits within the grid cell to prevent overlap */
+.score-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  /* Allow grid item to shrink below content size */
+  aspect-ratio: 1;
+  height: 100%;
+  width: auto;
+  max-width: 100px;
+  max-height: 100px;
+
+  @media (max-width: 767px) {
+    min-width: 50px;
+    /* Force minimum width to trigger scroll on mobile */
+  }
+
+  @media (min-width: 768px) {
+    width: 100%;
+    height: auto;
+    /* On tablet/desktop, fit to grid column width to prevent overlap */
+  }
+}
+
 .width-full {
   height: 70%;
   aspect-ratio: 1;
+
   @media (min-width: 615px) {
     height: 80%;
   }
+
   @media (min-width: 675px) {
     height: 90%;
   }
+
   @media (min-width: 750px) {
     height: 100%;
   }

@@ -1,16 +1,18 @@
 <div
-  class="border-2 h-full w-full flex items-center justify-center cursor-pointer"
+  class="score-shape border-2 cursor-pointer"
   [ngClass]="{
     'rounded-full': !isPentagon,
     'rounded-md': isPentagon,
     'border-none': isBlank,
     '!bg-transparent': isBlank,
-    'border-black border-2 text-black font-bold md:text-4xl text-2xl': !isBlank
+    'border-black border-2 text-black font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl': !isBlank
   }"
   (click)="presentModal()"
   [class]="(colors?.background || '') + ' ' + (colors?.text || '')"
 >
-  <p *ngIf="isBlank"></p>
-  <p *ngIf="isPentagon">{{ selectedScore ?? '' }}</p>
-  <p *ngIf="!isBlank && !isPentagon">{{ selectedScore ?? '' }}</p>
+  <span class="score-shape-inner">
+    <span *ngIf="isBlank"></span>
+    <span *ngIf="isPentagon">{{ selectedScore ?? '' }}</span>
+    <span *ngIf="!isBlank && !isPentagon">{{ selectedScore ?? '' }}</span>
+  </span>
 </div>
