@@ -1,13 +1,13 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { ModalService } from '../../services/modal.service';
-import { ToastService } from '../../services/toast.service';
-import { AreYouSureModalComponent } from '../are-you-sure-modal/are-you-sure-modal.component';
+import {Component, Input, OnInit, signal} from '@angular/core';
+import {ReplaySubject} from 'rxjs';
+import {ModalService} from '../../services/modal.service';
+import {ToastService} from '../../services/toast.service';
+import {AreYouSureModalComponent} from '../are-you-sure-modal/are-you-sure-modal.component';
 
 @Component({
   selector: 'app-settings-modal',
   templateUrl: './settings-modal.component.html',
-  styleUrls: ['./settings-modal.component.scss'],
+  styleUrls: [ './settings-modal.component.scss' ],
 })
 export class SettingsModalComponent implements OnInit {
   @Input() response$: ReplaySubject<any> = new ReplaySubject();
@@ -17,6 +17,7 @@ export class SettingsModalComponent implements OnInit {
   selectedColor0 = 'bg-orange-500';
   selectedColor1 = 'bg-yellow-400';
   selectedColor2 = 'bg-purple-500';
+  selectedTheme = 'dark';
   gameHistory = signal<any[]>(JSON.parse(localStorage.getItem('gameHistory') || '[]'));
   highScore = signal(-21);
   lowScore = signal(500);
@@ -25,16 +26,17 @@ export class SettingsModalComponent implements OnInit {
   constructor(
     private modalService: ModalService,
     private toast: ToastService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const rowColors = JSON.parse(
       localStorage.getItem('rowColors') ||
-        JSON.stringify({ row0: 'bg-orange-500', row1: 'bg-yellow-400', row2: 'bg-purple-500' })
+      JSON.stringify({row0: 'bg-orange-500', row1: 'bg-yellow-400', row2: 'bg-purple-500'})
     );
     if (rowColors.row0) this.selectedColor0 = rowColors.row0;
     if (rowColors.row1) this.selectedColor1 = rowColors.row1;
     if (rowColors.row2) this.selectedColor2 = rowColors.row2;
+    this.selectedTheme = localStorage.getItem('theme') || 'dark';
     this.calculateHistoricalValues();
   }
 
@@ -49,7 +51,7 @@ export class SettingsModalComponent implements OnInit {
 
   addAttachment(fileInput: Event): void {
     const input = fileInput.target as HTMLInputElement;
-    const file = input.files?.[0];
+    const file = input.files?.[ 0 ];
     if (!file) return;
     const fileReader = new FileReader();
     fileReader.onload = (event) => {
@@ -58,14 +60,14 @@ export class SettingsModalComponent implements OnInit {
         JSON.parse(fileContent);
         localStorage.setItem('gameHistory', fileContent);
         this.calculateHistoricalValues();
-      } catch (_) {}
+      } catch (_) { }
     };
     fileReader.readAsText(file);
     input.value = '';
   }
 
   downloadHistory(): void {
-    const blob = new Blob([JSON.stringify(this.gameHistory())], { type: 'application/json' });
+    const blob = new Blob([ JSON.stringify(this.gameHistory()) ], {type: 'application/json'});
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -95,13 +97,13 @@ export class SettingsModalComponent implements OnInit {
     const response$ = new ReplaySubject<boolean>(1);
     const modal = await this.modalService.create({
       component: AreYouSureModalComponent,
-      componentProps: { response$ },
+      componentProps: {response$},
       cssClass: 'medium-modal secondary',
     });
     await modal.present();
     response$.subscribe((resp) => {
       if (resp) {
-        const hist = [...this.gameHistory()];
+        const hist = [ ...this.gameHistory() ];
         hist.splice(index, 1);
         localStorage.setItem('gameHistory', JSON.stringify(hist));
         this.gameHistory.set(hist);
@@ -139,6 +141,16 @@ export class SettingsModalComponent implements OnInit {
       },
     });
     this.saveSettings();
+  }
+
+  themeSelected(): void {
+    if (this.selectedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', this.selectedTheme);
+    this.toast.show('Saved theme!', 750);
   }
 
   closeSettings(): void {

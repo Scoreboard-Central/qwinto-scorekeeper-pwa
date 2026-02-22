@@ -3,15 +3,23 @@
 @tailwind utilities;
 
 /* Base layout - fill viewport and center content on larger screens */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
+  @apply bg-gray-50 text-gray-900;
 }
 
-*, *::before, *::after {
+html.dark body {
+  @apply bg-gray-900 text-white;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -23,54 +31,71 @@ app-root {
 .bg-green-100 {
   background: #dcfce7;
 }
+
 .bg-blue-100 {
   background: #dbeafe;
 }
+
 .bg-red-100 {
   background: #fee2e2;
 }
+
 .bg-yellow-50 {
   background: #fffceb;
 }
+
 .bg-orange-100 {
   background: #ffedd5;
 }
+
 .bg-purple-100 {
   background: #f3e8ff;
 }
+
 .border-green-500 {
   border-color: #22c55e;
 }
+
 .border-blue-500 {
   border-color: #3b82f6;
 }
+
 .border-red-500 {
   border-color: #ef4444;
 }
+
 .border-yellow-400 {
   border-color: #facc15;
 }
+
 .border-purple-500 {
   border-color: #a855f7;
 }
+
 .border-orange-500 {
   border-color: #f97316;
 }
+
 .text-green-500 {
   color: #22c55e;
 }
+
 .text-blue-500 {
   color: #3b82f6;
 }
+
 .text-red-500 {
   color: #ef4444;
 }
+
 .text-yellow-400 {
   color: #facc15;
 }
+
 .text-purple-500 {
   color: #a855f7;
 }
+
 .text-orange-500 {
   color: #f97316;
 }
@@ -85,6 +110,7 @@ app-root {
   justify-content: center;
   z-index: 1000;
 }
+
 .modal-overlay.small-modal .modal-content {
   height: 60%;
   width: 90%;
@@ -92,6 +118,7 @@ app-root {
   min-height: 280px;
   border-radius: 8px;
 }
+
 .modal-overlay.medium-modal .modal-content {
   height: 65%;
   width: 90%;
@@ -99,14 +126,15 @@ app-root {
   min-height: 320px;
   border-radius: 8px;
 }
+
 .modal-overlay.medium-modal.secondary .modal-content {
   background: #d1d1d1;
 }
-@media (prefers-color-scheme: dark) {
-  .modal-overlay.medium-modal.secondary .modal-content {
-    background: #2f2f2f;
-  }
+
+html.dark .modal-overlay.medium-modal.secondary .modal-content {
+  background: #2f2f2f;
 }
+
 .modal-content {
   background: #fff;
   max-height: 90vh;
@@ -115,18 +143,19 @@ app-root {
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
+
 @media (min-width: 640px) {
   .modal-overlay.small-modal .modal-content {
     width: 85%;
   }
+
   .modal-overlay.medium-modal .modal-content {
     width: 85%;
   }
 }
-@media (prefers-color-scheme: dark) {
-  .modal-content {
-    background: #1c1c1d;
-  }
+
+html.dark .modal-content {
+  background: #1c1c1d;
 }
 
 /* Toast */

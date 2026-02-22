@@ -31,7 +31,7 @@
   </div>
 
   <div
-    class="flex w-full justify-between items-center px-3 md:px-6 min-h-[80px] py-4 flex-wrap gap-4 border-t-2 border-gray-200">
+    class="flex w-full justify-between items-center px-3 md:px-6 min-h-[80px] py-4 flex-wrap gap-4 border-t-2 border-gray-200 dark:border-gray-700">
     <div class="flex justify-start items-center h-full">
       <div class="flex flex-row h-full items-center gap-2" (click)="resetGame()">
         <div
@@ -56,14 +56,14 @@
       </div>
       <div class="flex flex-row h-full items-center" *ngIf="selections.length">
         <div
-          class="col-span-1 bottom-control-element border-2 dark:border-none border-black ml-3 rounded-md flex items-center justify-center relative cursor-pointer"
+          class="col-span-1 bottom-control-element border-2 border-black dark:border-none ml-3 rounded-md flex items-center justify-center relative cursor-pointer"
           (click)="undoSelection()"
           [class]="lightBackgrounds[selections[selections.length - 1].row] + ' ' + textColors[selections[selections.length - 1].row]">
           <span>{{ selections[selections.length - 1].value }}</span>
           <div
-            class="h-[50%] aspect-square bg-white rounded-full absolute -top-2 -right-2 flex items-center justify-center border-2 border-black">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="black"
-              class="h-4/5 aspect-square">
+            class="h-[50%] aspect-square bg-white dark:bg-gray-700 rounded-full absolute -top-2 -right-2 flex items-center justify-center border-2 border-black dark:border-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+              stroke="currentColor" class="h-4/5 aspect-square text-black dark:text-white">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
             </svg>
           </div>

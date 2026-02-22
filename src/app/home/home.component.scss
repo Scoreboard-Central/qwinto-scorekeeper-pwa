@@ -6,19 +6,17 @@
   min-height: 100vh;
 }
 
-/* Responsive game container - centers content on desktop/tablet with max width */
+/* Responsive game container - full screen layout with 8px pad on larger screens */
 .game-container {
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
   margin: 0 auto;
 
-  @media (min-width: 768px) {
-    max-width: 720px;
-  }
-
-  @media (min-width: 1024px) {
-    max-width: 900px;
+  @media (min-width: 650px) {
+    width: calc(100% - 16px);
+    min-height: calc(100vh - 16px);
+    margin: 8px auto;
   }
 }
 
@@ -79,9 +77,9 @@
 
 
 
-/* Below 768px: horizontal scroll instead of shrinking */
+/* Below 650px: horizontal scroll instead of shrinking */
 .score-rows-wrapper {
-  @media (max-width: 767px) {
+  @media (max-width: 649px) {
     overflow-x: auto;
     width: 100%;
     -webkit-overflow-scrolling: touch;
@@ -89,7 +87,7 @@
 }
 
 .score-rows-inner {
-  @media (max-width: 767px) {
+  @media (max-width: 649px) {
     width: fit-content;
     min-width: 100%;
     /* Ensure rows stretch to at least the wrapper width, but grow with content */
@@ -109,15 +107,20 @@
   max-width: 100px;
   max-height: 100px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 649px) {
     min-width: 50px;
     /* Force minimum width to trigger scroll on mobile */
   }
 
-  @media (min-width: 768px) {
-    width: 100%;
-    height: auto;
-    /* On tablet/desktop, fit to grid column width to prevent overlap */
+  @media (min-width: 650px) {
+    height: 70%;
+    width: auto;
+  }
+
+  @media (min-width: 850px) {
+    height: 90%;
+    width: auto;
+    /* On tablet/desktop, constrain height instead of filling width */
   }
 }
 

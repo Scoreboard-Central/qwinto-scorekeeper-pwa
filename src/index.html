@@ -12,6 +12,13 @@
   <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#374151">
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme')) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
 </head>
 
 <body>
