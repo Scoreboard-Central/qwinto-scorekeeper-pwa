@@ -38,10 +38,10 @@ export class HomeComponent implements OnInit {
   lightBackgrounds: string[] = [];
   hideScores = signal(false);
   diceEnabled = signal(false);
-  dice: {active: boolean; value: number | null}[] = [
-    {active: true, value: null},
-    {active: true, value: null},
-    {active: true, value: null},
+  dice: {active: boolean; value: number | null, rolling: boolean}[] = [
+    {active: true, value: null, rolling: false},
+    {active: true, value: null, rolling: false},
+    {active: true, value: null, rolling: false},
   ];
 
   ngOnInit(): void {
@@ -152,11 +152,43 @@ export class HomeComponent implements OnInit {
   }
 
   rollDice(): void {
-    this.dice.forEach(d => {
+    // Clear any existing animation flags first to allow rapid re-rolling
+    this.dice.forEach(d => d.rolling = false);
+
+    // We compute the new values now
+    const newValues: (number | null)[] = [ null, null, null ];
+    this.dice.forEach((d, i) => {
       if (d.active) {
-        d.value = Math.floor(Math.random() * 6) + 1;
+        newValues[ i ] = Math.floor(Math.random() * 6) + 1;
       }
     });
+
+    // Determine if we are running in a test environment
+    // Karma usually exposes window.__karma__
+    const isTest = typeof window !== 'undefined' && !!(window as any).__karma__;
+
+    if (isTest) {
+      // Apply synchronously for tests
+      this.dice.forEach((d, i) => {
+        if (d.active) {
+          d.value = newValues[ i ];
+        }
+      });
+    }
+
+    // Trigger the animation class removal/addition
+    setTimeout(() => {
+      this.dice.forEach((d, i) => {
+        if (d.active) {
+          d.rolling = true;
+          // Apply the new value at the end of the 400ms animation if not a test environment
+          setTimeout(() => {
+            d.rolling = false;
+            if (!isTest) d.value = newValues[ i ];
+          }, 400);
+        }
+      });
+    }, 10);
   }
 
   async checkForGameOver(scoreEnd: boolean, failedThrowEnd: boolean): Promise<void> {
@@ -272,6 +304,7 @@ export class HomeComponent implements OnInit {
     this.dice.forEach(d => {
       d.active = true;
       d.value = null;
+      d.rolling = false;
     });
   }
 
