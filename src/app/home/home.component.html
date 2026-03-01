@@ -18,14 +18,36 @@
     </div>
   </div>
 
-  <div class="flex justify-center items-center w-full failed-throws-height my-[2vh] p-1 flex-wrap gap-4">
-    <div *ngFor="let space of failedThrows; index as i" (click)="markFailedThrow(i)"
-      class="failed-throw-box col-span-1 border-2 border-red-600 bg-red-200 text-red-600 rounded-md">
-      <div *ngIf="failedThrows[i].marked" class="flex items-center justify-center text-3xl md:text-6xl h-full w-full">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#dc2625"
-          class="w-8 h-8">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+  <div class="flex justify-between items-center w-full failed-throws-height my-[2vh] px-3 md:px-6 flex-wrap gap-4">
+    <!-- Dice Area inline -->
+    <div class="flex flex-row h-full items-center gap-2 md:gap-4" *ngIf="diceEnabled()">
+      <div *ngFor="let die of dice; let i = index"
+        class="w-[50px] aspect-square rounded-md flex items-center justify-center text-xl font-bold cursor-pointer border-2 border-black dark:border-white transition-all select-none"
+        [class]="rowColors[i] + (die.active ? ' opacity-100' : ' opacity-40')" (click)="toggleDie(i)"
+        [class.dice-rolling]="die.rolling">
+        <span *ngIf="die.value" class="text-black dark:text-white">{{ die.value }}</span>
+      </div>
+      <div
+        class="h-[50px] px-4 bg-gray-700 hover:bg-gray-600 text-white rounded-md flex items-center justify-center font-bold text-sm cursor-pointer border-2 border-black dark:border-none transition-colors select-none"
+        (click)="rollDice()">
+        Roll
+      </div>
+    </div>
+
+    <!-- Spacer to ensure failed throws align right if dice are hidden -->
+    <div class="flex-1" *ngIf="!diceEnabled()"></div>
+
+    <!-- Failed Throws Group -->
+    <div class="flex flex-row items-center gap-2 md:gap-4">
+      <div *ngFor="let space of failedThrows; index as i" (click)="markFailedThrow(i)"
+        class="failed-throw-box border-2 border-red-600 bg-red-200 text-red-600 rounded-md">
+        <div *ngIf="failedThrows[i].marked"
+          class="flex items-center justify-center text-3xl md:text-5xl h-full w-full font-bold">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#dc2625"
+            class="w-8 h-8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -70,20 +92,6 @@
         </div>
       </div>
 
-      <!-- Dice Area inline -->
-      <div class="flex flex-row h-full items-center ml-2 md:ml-4 gap-1 md:gap-2" *ngIf="diceEnabled()">
-        <div *ngFor="let die of dice; let i = index"
-          class="col-span-1 bottom-control-element rounded-md flex items-center justify-center text-lg font-bold cursor-pointer border-2 border-black dark:border-white transition-all select-none"
-          [class]="rowColors[i] + (die.active ? ' opacity-100' : ' opacity-40')" (click)="toggleDie(i)"
-          [class.dice-rolling]="die.rolling">
-          <span *ngIf="die.value" class="text-black dark:text-white">{{ die.value }}</span>
-        </div>
-        <div
-          class="col-span-1 bottom-control-element bg-gray-700 hover:bg-gray-600 text-white rounded-md flex items-center justify-center font-bold text-xs md:text-sm cursor-pointer border-2 border-black dark:border-none transition-colors select-none"
-          (click)="rollDice()">
-          Roll
-        </div>
-      </div>
     </div>
 
     <div class="flex justify-end items-center h-full min-w-0 flex-wrap gap-x-2 gap-y-2">
