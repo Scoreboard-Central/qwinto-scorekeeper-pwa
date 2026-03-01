@@ -37,6 +37,12 @@ export class HomeComponent implements OnInit {
   textColors: string[] = [];
   lightBackgrounds: string[] = [];
   hideScores = signal(false);
+  diceEnabled = signal(false);
+  dice: {active: boolean; value: number | null}[] = [
+    {active: true, value: null},
+    {active: true, value: null},
+    {active: true, value: null},
+  ];
 
   ngOnInit(): void {
     // Only lock landscape on narrow viewports (phones) - allow desktop/tablet to use natural orientation
@@ -48,6 +54,7 @@ export class HomeComponent implements OnInit {
     if (rowColorOverrides.row1) this.rowColor1 = rowColorOverrides.row1;
     if (rowColorOverrides.row2) this.rowColor2 = rowColorOverrides.row2;
     this.setRowColors({row0: this.rowColor0, row1: this.rowColor1, row2: this.rowColor2});
+    this.diceEnabled.set(localStorage.getItem('enableDice') === 'true');
   }
 
   failedThrows: IFailedThrow[] = [
@@ -89,6 +96,7 @@ export class HomeComponent implements OnInit {
     await modal.present();
     response$.subscribe((res: any) => {
       if (res?.type === 'colors') this.setRowColors(res.payload);
+      if (res?.type === 'dice') this.diceEnabled.set(res.payload.enableDice);
     });
     modal.onDidDismiss().then(() => response$.unsubscribe());
   }
@@ -137,6 +145,18 @@ export class HomeComponent implements OnInit {
     this.calcBonuses();
     this.calcRowScores();
     this.checkForGameOver(true, false);
+  }
+
+  toggleDie(index: number): void {
+    this.dice[ index ].active = !this.dice[ index ].active;
+  }
+
+  rollDice(): void {
+    this.dice.forEach(d => {
+      if (d.active) {
+        d.value = Math.floor(Math.random() * 6) + 1;
+      }
+    });
   }
 
   async checkForGameOver(scoreEnd: boolean, failedThrowEnd: boolean): Promise<void> {
@@ -249,6 +269,10 @@ export class HomeComponent implements OnInit {
     this.calcBonuses();
     this.calcRowScores();
     this.selections = [];
+    this.dice.forEach(d => {
+      d.active = true;
+      d.value = null;
+    });
   }
 
   private resetFailedThrows(): void {

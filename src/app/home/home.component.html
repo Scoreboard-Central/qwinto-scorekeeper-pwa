@@ -69,6 +69,20 @@
           </div>
         </div>
       </div>
+
+      <!-- Dice Area inline -->
+      <div class="flex flex-row h-full items-center ml-2 md:ml-4 gap-1 md:gap-2" *ngIf="diceEnabled()">
+        <div *ngFor="let die of dice; let i = index"
+          class="col-span-1 bottom-control-element rounded-md flex items-center justify-center text-lg font-bold cursor-pointer border-2 border-black dark:border-white transition-opacity select-none"
+          [class]="rowColors[i] + (die.active ? ' opacity-100' : ' opacity-40')" (click)="toggleDie(i)">
+          <span *ngIf="die.value" class="text-black dark:text-white">{{ die.value }}</span>
+        </div>
+        <div
+          class="col-span-1 bottom-control-element bg-gray-700 hover:bg-gray-600 text-white rounded-md flex items-center justify-center font-bold text-xs md:text-sm cursor-pointer border-2 border-black dark:border-none transition-colors select-none"
+          (click)="rollDice()">
+          Roll
+        </div>
+      </div>
     </div>
 
     <div class="flex justify-end items-center h-full min-w-0 flex-wrap gap-x-2 gap-y-2">

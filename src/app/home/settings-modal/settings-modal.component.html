@@ -68,6 +68,19 @@
           <option value="light">Light</option>
         </select>
       </div>
+      <div class="flex my-4 justify-center items-center">
+        <p class="flex items-center mr-3">Enable Dice:</p>
+        <div
+          class="w-6 h-6 border-2 border-black dark:border-white rounded-md cursor-pointer flex items-center justify-center bg-white"
+          (click)="enableDice = !enableDice; diceToggled()">
+          <svg *ngIf="enableDice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+            class="w-5 h-5 text-black">
+            <path fill-rule="evenodd"
+              d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+      </div>
       <div class="w-full flex justify-center">
         <p class="m-1 min-h-[44px] min-w-[120px] max-w-[180px] h-[5vw] w-[20vw] md:w-[16vw] rounded-full py-2 px-3 dark:bg-gray-700 border-2 border-black dark:border-none dark:text-white flex items-center justify-center cursor-pointer"
           (click)="resetColors()">

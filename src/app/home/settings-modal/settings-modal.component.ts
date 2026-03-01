@@ -18,6 +18,7 @@ export class SettingsModalComponent implements OnInit {
   selectedColor1 = 'bg-yellow-400';
   selectedColor2 = 'bg-purple-500';
   selectedTheme = 'dark';
+  enableDice = false;
   gameHistory = signal<any[]>(JSON.parse(localStorage.getItem('gameHistory') || '[]'));
   highScore = signal(-21);
   lowScore = signal(500);
@@ -37,6 +38,7 @@ export class SettingsModalComponent implements OnInit {
     if (rowColors.row1) this.selectedColor1 = rowColors.row1;
     if (rowColors.row2) this.selectedColor2 = rowColors.row2;
     this.selectedTheme = localStorage.getItem('theme') || 'dark';
+    this.enableDice = localStorage.getItem('enableDice') === 'true';
     this.calculateHistoricalValues();
   }
 
@@ -151,6 +153,15 @@ export class SettingsModalComponent implements OnInit {
     }
     localStorage.setItem('theme', this.selectedTheme);
     this.toast.show('Saved theme!', 750);
+  }
+
+  diceToggled(): void {
+    localStorage.setItem('enableDice', this.enableDice.toString());
+    this.response$.next({
+      type: 'dice',
+      payload: {enableDice: this.enableDice},
+    });
+    this.toast.show('Saved!', 750);
   }
 
   closeSettings(): void {
