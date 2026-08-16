@@ -37,6 +37,21 @@ jobs:
       - name: Sync Capacitor to Android
         run: npx cap sync android
 
+      - name: Check Secrets
+        run: |
+          if [ -z "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
+            echo "ERROR: ANDROID_KEYSTORE_BASE64 secret is missing. Go to Settings > Secrets and variables > Actions to add it."
+            exit 1
+          fi
+          if [ -z "${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" ]; then
+            echo "ERROR: ANDROID_KEYSTORE_PASSWORD secret is missing. Go to Settings > Secrets and variables > Actions to add it."
+            exit 1
+          fi
+          if [ -z "${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}" ]; then
+            echo "ERROR: PLAY_SERVICE_ACCOUNT_JSON secret is missing. Go to Settings > Secrets and variables > Actions to add it."
+            exit 1
+          fi
+
       - name: Decode Keystore
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
