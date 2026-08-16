@@ -40,3 +40,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Android Release Secrets
+*.keystore
+keystore_base64.txt
+

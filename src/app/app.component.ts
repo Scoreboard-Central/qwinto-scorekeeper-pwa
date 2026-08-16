@@ -4,8 +4,12 @@ import { ModalService } from './services/modal.service';
 @Component({
   selector: 'app-root',
   template: `
-    <router-outlet></router-outlet>
-    <ng-container #modalHost></ng-container>
+    <ion-app>
+      <ion-content [scrollY]="false">
+        <router-outlet></router-outlet>
+        <ng-container #modalHost></ng-container>
+      </ion-content>
+    </ion-app>
   `,
   styles: [`:host { display: block; height: 100%; }`],
 })
