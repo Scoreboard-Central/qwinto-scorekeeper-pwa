@@ -67,7 +67,7 @@ jobs:
         env:
           KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
         run: |
-          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore android/app/release.keystore -storepass "$KEYSTORE_PASSWORD" android/app/build/outputs/bundle/release/app-release.aab "rolling-key"
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore android/app/release.keystore -storepass "$KEYSTORE_PASSWORD" android/app/build/outputs/bundle/release/app-release.aab "qwinto-key"
 
       - name: Upload to Google Play Console
         uses: r0adkll/upload-google-play@v1

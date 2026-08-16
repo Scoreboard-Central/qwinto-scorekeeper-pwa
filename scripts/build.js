@@ -111,7 +111,7 @@ try {
   if (fs.existsSync(keystorePath)) {
     console.log('Signing Android App Bundle (AAB)...');
     const keystorePassword = process.env.ANDROID_KEYSTORE_PASSWORD || '159b8cc961f63339';
-    const keystoreAlias = process.env.ANDROID_KEYSTORE_ALIAS || 'rolling-key';
+    const keystoreAlias = process.env.ANDROID_KEYSTORE_ALIAS || 'qwinto-key';
     try {
       execSync(`jarsigner -sigalg SHA256withRSA -digestalg SHA-256 -keystore "${keystorePath}" -storepass "${keystorePassword}" "${aabPath}" "${keystoreAlias}"`, { stdio: 'inherit' });
       console.log('AAB signed successfully.');
