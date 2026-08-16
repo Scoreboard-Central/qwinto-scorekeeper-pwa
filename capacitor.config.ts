@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.blakelamb.qwintoscorekeeper',
+  appId: 'io.qwinto.app',
   appName: 'Qwinto Scorekeeper',
   webDir: 'dist/qwinto-scorekeeper-pwa',
   server: {
