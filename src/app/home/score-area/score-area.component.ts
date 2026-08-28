@@ -58,6 +58,7 @@ export class ScoreAreaComponent implements OnInit, OnChanges {
 
     const modal = await this.modalService.create({
       component: ScoreModalComponent,
+      cssClass: 'score-modal',
       componentProps: {
         selectedScore$,
         lowerBound,

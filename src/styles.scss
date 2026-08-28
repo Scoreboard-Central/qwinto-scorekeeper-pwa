@@ -144,6 +144,15 @@ app-root {
   border-radius: 8px;
 }
 
+.modal-overlay.score-modal .modal-content {
+  height: auto;
+  max-height: 90vh;
+  width: 95%;
+  max-width: 480px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 .modal-overlay.medium-modal.secondary .modal-content {
   background: #d1d1d1;
 }
