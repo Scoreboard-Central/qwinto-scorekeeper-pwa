@@ -12,6 +12,7 @@
   max-width: 100%;
   min-height: 100vh;
   margin: 0 auto;
+  overflow-x: hidden;
 
   @media (min-width: 650px) {
     width: calc(100% - 16px);
@@ -77,21 +78,17 @@
 
 
 
-/* Below 650px: horizontal scroll instead of shrinking */
+/* Horizontal scroll instead of shrinking/stretching the page */
 .score-rows-wrapper {
-  @media (max-width: 649px) {
-    overflow-x: auto;
-    width: 100%;
-    -webkit-overflow-scrolling: touch;
-  }
+  overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .score-rows-inner {
-  @media (max-width: 649px) {
-    width: fit-content;
-    min-width: 100%;
-    /* Ensure rows stretch to at least the wrapper width, but grow with content */
-  }
+  width: fit-content;
+  min-width: 100%;
+  /* Ensure rows stretch to at least the wrapper width, but grow with content */
 }
 
 /* Score grid cells - square that fits within the grid cell to prevent overlap */
