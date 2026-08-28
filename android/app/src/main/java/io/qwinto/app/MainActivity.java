@@ -1,4 +1,4 @@
-package com.blakelamb.qwintoscorekeeper;
+package io.qwinto.app;
 
 import com.getcapacitor.BridgeActivity;
 
