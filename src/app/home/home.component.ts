@@ -256,19 +256,17 @@ export class HomeComponent implements OnInit {
 
   calcBonuses(): void {
     this.bonuses.forEach(bonus => {
-      bonus.value = 0;
       let colIsFull = true;
+      let squareValue = 0;
       this.scorecard.forEach((row, i) => {
         const val = row[ bonus.col ];
-        if (val !== undefined && val > 0) {
-          if (bonus.row === i) bonus.value = val;
-        } else {
+        if (val === undefined || val === 0) {
           colIsFull = false;
+        } else if (bonus.row === i) {
+          squareValue = val;
         }
       });
-      if (colIsFull) {
-        // value already set above
-      }
+      bonus.value = colIsFull ? squareValue : 0;
     });
   }
 
