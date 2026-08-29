@@ -8,27 +8,23 @@
 
 /* Responsive game container - full screen layout with 8px pad on larger screens */
 .game-container {
-  width: 100%;
-  max-width: 100%;
+  width: 100vw;
+  max-width: 100vw;
   min-height: 100vh;
   margin: 0 auto;
   overflow-x: hidden;
 
   @media (min-width: 650px) {
-    width: calc(100% - 16px);
+    width: calc(100vw - 16px);
+    max-width: calc(100vw - 16px);
     min-height: calc(100vh - 16px);
     margin: 8px auto;
   }
 }
 
-/* Responsive row heights - balanced for visibility across screen sizes */
 .row-height {
-  min-height: 64px;
-  height: 17vh;
-
-  @media (min-height: 700px) {
-    height: clamp(72px, 14vh, 140px);
-  }
+  min-height: 48px;
+  height: clamp(48px, 7.5vw, 80px);
 }
 
 .failed-throws-height {
@@ -78,47 +74,42 @@
 
 
 
-/* Horizontal scroll instead of shrinking/stretching the page */
 .score-rows-wrapper {
   overflow-x: auto;
-  width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
   -webkit-overflow-scrolling: touch;
 }
 
-.score-rows-inner {
-  width: fit-content;
-  min-width: 100%;
-  /* Ensure rows stretch to at least the wrapper width, but grow with content */
+.bottom-bar {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
-/* Score grid cells - square that fits within the grid cell to prevent overlap */
+.failed-throws-wrapper {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.score-rows-inner {
+  width: 100%;
+  max-width: 100%;
+}
+
 .score-cell {
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  /* Allow grid item to shrink below content size */
+  flex: 1 1 0%;
   aspect-ratio: 1;
   height: 100%;
   width: auto;
   max-width: 100px;
   max-height: 100px;
-
-  @media (max-width: 649px) {
-    min-width: 50px;
-    /* Force minimum width to trigger scroll on mobile */
-  }
-
-  @media (min-width: 650px) {
-    height: 90%;
-    width: auto;
-  }
-
-  @media (min-width: 850px) {
-    height: 90%;
-    width: auto;
-    /* On tablet/desktop, constrain height instead of filling width */
-  }
 }
 
 .width-full {

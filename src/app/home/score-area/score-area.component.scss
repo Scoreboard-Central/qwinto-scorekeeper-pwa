@@ -14,10 +14,6 @@
   aspect-ratio: 1 !important;
   position: relative;
   box-sizing: border-box;
-
-  @media (max-width: 599px) {
-    width: 90%;
-  }
 }
 
 .score-shape-inner {

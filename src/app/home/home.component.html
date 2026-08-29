@@ -4,11 +4,12 @@
       <ng-container *ngFor="let row of rows; let i = index">
         <div
           class="score-row flex flex-nowrap md:grid md:grid-cols-12 md:grid-rows-1 gap-x-1 p-1 row-height w-full items-center md:place-items-center"
-          [ngClass]="{
-            'md:rounded-t-md': i === 0,
-            'md:rounded-b-md': i === 2
-          }" [class]="rowColors[i]">
-          <div *ngFor="let space of spaces" class="flex-shrink-0 score-cell md:col-span-1 md:w-auto">
+          [ngClass]="[
+            i === 0 ? 'md:rounded-t-md' : '',
+            i === 2 ? 'md:rounded-b-md' : '',
+            rowColors[i]
+          ]">
+          <div *ngFor="let space of spaces" class="score-cell md:col-span-1 md:w-auto">
             <app-score-area [isBlank]="row.blankSpots.includes(space)" [isPentagon]="row.pentagons.includes(space)"
               [scorecard]="scorecard" [rowNumber]="i" [colNumber]="space" (updateScorecard)="updateScorecard($event)"
               [selectedScore]="scorecard[i][space]" [backgroundColor]="rowColors[i].split('-')[1]"></app-score-area>
@@ -18,12 +19,13 @@
     </div>
   </div>
 
-  <div class="flex justify-between items-center w-full failed-throws-height my-[2vh] px-3 md:px-6 flex-wrap gap-4">
+  <div class="flex items-center w-full failed-throws-height failed-throws-wrapper my-[2vh] px-3 md:px-6 flex-wrap gap-4"
+    [ngClass]="diceEnabled() ? 'justify-between' : 'justify-center'">
     <!-- Dice Area inline -->
     <div class="flex flex-row h-full items-center gap-2 md:gap-4" *ngIf="diceEnabled()">
       <div *ngFor="let die of dice; let i = index"
         class="w-[50px] aspect-square rounded-md flex items-center justify-center text-xl font-bold cursor-pointer border-2 border-black dark:border-white transition-all select-none"
-        [class]="rowColors[i] + (die.active ? ' opacity-100' : ' opacity-40')" (click)="toggleDie(i)"
+        [ngClass]="rowColors[i] + (die.active ? ' opacity-100' : ' opacity-40')" (click)="toggleDie(i)"
         [class.dice-rolling]="die.rolling">
         <span *ngIf="die.value" class="text-black dark:text-white">{{ die.value }}</span>
       </div>
@@ -33,9 +35,6 @@
         Roll
       </div>
     </div>
-
-    <!-- Spacer to ensure failed throws align right if dice are hidden -->
-    <div class="flex-1" *ngIf="!diceEnabled()"></div>
 
     <!-- Failed Throws Group -->
     <div class="flex flex-row items-center gap-2 md:gap-4">
@@ -53,7 +52,7 @@
   </div>
 
   <div
-    class="flex w-full justify-between items-center px-3 md:px-6 min-h-[80px] py-4 flex-wrap gap-4 border-t-2 border-gray-200 dark:border-gray-700">
+    class="flex w-full justify-between items-center bottom-bar px-3 md:px-6 min-h-[80px] py-4 flex-wrap gap-4 border-t-2 border-gray-200 dark:border-gray-700">
     <div class="flex justify-start items-center h-full">
       <div class="flex flex-row h-full items-center gap-2" (click)="resetGame()">
         <div
@@ -99,15 +98,15 @@
       <div class="flex flex-row items-center gap-x-1">
         <div class="flex flex-row h-full items-center">
           <div class="col-span-1 bottom-control-element border-2 mr-1 rounded-full flex items-center justify-center"
-            [class]="outlineColors[0]">
+            [ngClass]="outlineColors[0]">
             <span *ngIf="!hideScores(); else hiddenScore">{{ rowScores[0] }}</span>
           </div>
           <div class="col-span-1 bottom-control-element border-2 mr-1 rounded-full flex items-center justify-center"
-            [class]="outlineColors[1]">
+            [ngClass]="outlineColors[1]">
             <span *ngIf="!hideScores(); else hiddenScore">{{ rowScores[1] }}</span>
           </div>
           <div class="col-span-1 bottom-control-element border-2 mr-1 rounded-full flex items-center justify-center"
-            [class]="outlineColors[2]">
+            [ngClass]="outlineColors[2]">
             <span *ngIf="!hideScores(); else hiddenScore">{{ rowScores[2] }}</span>
           </div>
         </div>
