@@ -1,4 +1,200 @@
 :host {
   display: block;
   height: 100%;
+  box-sizing: border-box;
+}
+
+.reset-modal-container {
+  box-sizing: border-box;
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 12px;
+  flex-shrink: 0;
+
+  :host-context(.dark) & {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.close-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  :host-context(.dark) & {
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.modal-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.modal-message {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.7);
+  margin: 0;
+
+  :host-context(.dark) & {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 8px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+  gap: 16px;
+
+  :host-context(.dark) & {
+    background: rgba(255, 255, 255, 0.02);
+  }
+}
+
+.setting-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.setting-control {
+  display: flex;
+  align-items: center;
+}
+
+/* Custom Toggle */
+.premium-toggle {
+  width: 48px;
+  height: 26px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 13px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &.active {
+    background: #10b981; /* Emerald-500 */
+    
+    .toggle-handle {
+      left: 24px;
+    }
+  }
+
+  .toggle-handle {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    transition: left 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+
+  :host-context(.dark) & {
+    background: rgba(255, 255, 255, 0.15);
+
+    &.active {
+      background: #10b981;
+    }
+  }
+}
+
+/* Modal Footer Actions */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+
+  :host-context(.dark) & {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+.premium-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.05);
+  color: #000;
+  min-width: 100px;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  &.primary {
+    background: #ef4444; /* red-500 */
+    color: #fff;
+    border: none;
+
+    &:hover {
+      background: #dc2626; /* red-600 */
+    }
+  }
+
+  :host-context(.dark) & {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &.primary {
+      background: #ef4444;
+      color: #fff;
+
+      &:hover {
+        background: #dc2626;
+      }
+    }
+  }
 }
